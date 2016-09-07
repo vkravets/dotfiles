@@ -9,9 +9,9 @@
 # osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/vkravets/Library/Application Support/Übersicht/widgets/background.widget/images/wallpaper.jpg"' && \
 
 command: """
-curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200' && \
-sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '/Users/vkravets/Library/Application Support/Übersicht/widgets/background.widget/images/wallpaper.jpg'" && \
-killall Dock && \
+curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200'; \
+sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '/Users/vkravets/Library/Application Support/Übersicht/widgets/background.widget/images/wallpaper.jpg'" ; \
+killall Dock ; \
 exit 0
 """
 
