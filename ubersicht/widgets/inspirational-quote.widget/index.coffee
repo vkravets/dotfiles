@@ -1,8 +1,19 @@
-command: """
-curl -L -s http://greatwords.ru/random -o inspirational-quote.widget/random.html ; \
-cat inspirational-quote.widget/random.html | sed 's|<h2| (c) <h2|g' | awk '/quote-p/,/<\\/h2>/{print $0}' ; \
-exit 0
-"""
+# command: """
+# curl -L -s http://greatwords.ru/random -o inspirational-quote.widget/random.html ; \
+# cat inspirational-quote.widget/random.html | sed 's|<h2| (c) <h2|g' | awk '/quote-p/,/<\\/h2>/{print $0}' ; \
+# exit 0
+# """
+
+command: (callback) ->
+  isOnline = window.navigator.onLine
+  storage = window.localStorage
+  if isOnline
+    cmd = "curl -L -s http://greatwords.ru/random | sed 's|<h2| (c) <h2|g' | awk '/quote-p/,/<\\/h2>/{print $0}'"
+    @run cmd, (error, data) ->
+      storage.setItem('greatwords.ru', data)
+      callback(error, data)
+  else
+    callback(null, storage.getItem('greatwords.ru'))
 
 refreshFrequency: 30*60*1000 # 5min
 

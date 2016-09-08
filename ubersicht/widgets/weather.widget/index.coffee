@@ -149,11 +149,26 @@ style: """
       font-size: #{appearance.baseFontSize * .33}px
 """
 
-command: "$(ps -o comm= $PPID | sed -e 's/UM-LM\^H/Ü/') weather.widget/get-weather \
-                            \"#{options.city}\" \
-                            \"#{options.region}\" \
-                            #{options.units} \
-                            #{'static' if options.staticLocation}"
+# command: "$(ps -o comm= $PPID | sed -e 's/UM-LM\^H/Ü/') weather.widget/get-weather \
+#                             \"#{options.city}\" \
+#                             \"#{options.region}\" \
+#                             #{options.units} \
+#                             #{'static' if options.staticLocation}"
+
+command: (callback) ->
+  isOnline = window.navigator.onLine
+  storage = window.localStorage
+  if isOnline
+    cmd = "$(ps -o comm= $PPID | sed -e 's/UM-LM\^H/Ü/') weather.widget/get-weather \
+                                \"#{options.city}\" \
+                                \"#{options.region}\" \
+                                #{options.units} \
+                                #{'static' if options.staticLocation}"
+    @run cmd, (error, data) ->
+      storage.setItem('weather.widget', data)
+      callback(error, data)
+  else
+    callback(null, storage.getItem('weather.widget'))
 
 appearance: appearance
 

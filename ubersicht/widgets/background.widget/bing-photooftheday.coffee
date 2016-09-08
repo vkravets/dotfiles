@@ -16,7 +16,7 @@ exit 0
 """
 
 # Set the refresh frequency.
-refreshFrequency: '1h'
+refreshFrequency: '3h'
 
 style: """
   top: 0%
