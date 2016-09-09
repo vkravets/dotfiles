@@ -13,7 +13,7 @@ fi
 
 #
 # Execute iStats command
-# 
+#
 if [ -n "$(which iStats)" ]; then
     # define command
     command=( "$(which iStats)" )

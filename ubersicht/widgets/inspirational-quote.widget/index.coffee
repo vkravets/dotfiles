@@ -18,10 +18,9 @@ command: (callback) ->
 refreshFrequency: 30*60*1000 # 5min
 
 style: """
-  -webkit-font-smoothing: antialiased
   bottom: 0px
   right: 0px
-  color: #ddd
+  color: #fff
   font-family: Helvetica Neue
   font-size: 20px
 
@@ -32,8 +31,8 @@ style: """
     padding: 5px 10px
     width: 300px
     font-size: 20px
-    font-weight: lighter
-	  font-smoothing: antialiased
+    text-shadow: black 1px 1px 0, black -1px -1px 0,
+                 black -1px 1px 0, black 1px -1px 0;
 
   .author, .example, .example-meaning
     text-transform: capitalize
@@ -43,6 +42,8 @@ style: """
     text-align: right
     font-style: italic
     font-weight: bold
+    text-shadow: black 1px 1px 0, black -1px -1px 0,
+                 black -1px 1px 0, black 1px -1px 0;
 
 """
 

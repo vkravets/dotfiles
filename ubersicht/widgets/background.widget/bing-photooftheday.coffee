@@ -10,7 +10,7 @@
 
 command: """
 curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200'; \
-sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '/Users/vkravets/Library/Application Support/Übersicht/widgets/background.widget/images/wallpaper.jpg'" ; \
+sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '`pwd`/background.widget/images/wallpaper.jpg'" ; \
 killall Dock ; \
 exit 0
 """
