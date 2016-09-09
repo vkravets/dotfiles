@@ -48,6 +48,7 @@ style: """
 
 render: (output) -> """
   <div class="container">
+  #{window.localStorage.getItem('greatwords.ru')}
   </div>
 """
 
