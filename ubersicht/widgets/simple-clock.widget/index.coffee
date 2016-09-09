@@ -18,6 +18,8 @@ style: """
   h1
     font-size: 5em
     font-weight: 200
+    text-shadow: black 1px 1px 0, black -1px -1px 0,
+                 black -1px 1px 0, black 1px -1px 0;
     margin: 0
     padding: 0
   """

@@ -9,8 +9,8 @@
 # osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/vkravets/Library/Application Support/Übersicht/widgets/background.widget/images/wallpaper.jpg"' && \
 
 command: """
-curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200'; \
-sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '/Users/vkravets/Library/Application Support/Übersicht/widgets/background.widget/images/wallpaper.jpg'" ; \
+curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1080'; \
+sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '`pwd`/background.widget/images/wallpaper.jpg'" ; \
 killall Dock ; \
 exit 0
 """
@@ -38,16 +38,16 @@ style: """
     z-index: -10000
 
   .darker-bottom
-    width: 1920px
-    height: 500px
+    width: 1440px
+    height: 300px
     color: green
-    top: 700px
+    top: 600px
     position: absolute
     z-index: -9999
     background: linear-gradient(180deg, rgba(0, 0, 0, 0), black)
 
   .darker-top
-    width: 1920px
+    width: 1440px
     height: 500px
     color: green
     top: 0px
