@@ -12,14 +12,14 @@
 # sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '`pwd`/background.widget/images/wallpaper.jpg'" ; \
 # killall Dock ; \
 
-
-command: """
-cp background.widget/images/wallpaper.jpg background.widget/images/wallpaper_old.jpg ; \
-curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200' ; \
-/usr/local/bin/python3 background.widget/change_desktop.py background.widget/images/wallpaper_old.jpg ; \
-/usr/local/bin/python3 background.widget/change_desktop.py background.widget/images/wallpaper.jpg ; \
-exit 0
-"""
+command: (callback) ->
+  isOnline = window.navigator.onLine
+  if isOnline
+    cmd = "$(which bash) background.widget/download_and_set_wallpaper.sh"
+    @run cmd, (error, data) ->
+      callback(error, data)
+  else
+    callback(null, "")
 
 # Set the refresh frequency.
 refreshFrequency: '3h'
@@ -66,9 +66,6 @@ style: """
 render: -> """
 <div class='darker-top'></div>
 <div id='background'>
-  <div class='wallpaper'>
-      <img src='background.widget/images/wallpaper.jpg' width='1920' height='1200' class='myimage' >
-  </div>
 </div>
 <div class='darker-bottom'></div>
 """
@@ -79,7 +76,7 @@ update: (output, domEl) ->
   # html = ''
   # outputhtml = output.replace("<url>", "").replace("</url>", "").replace(/(?:\r\n|\r|\n)/g, '').trim()
   # html += "<div class='wallpaper'> "
-  # html += "<img src='background.widget/images/wallpaper.jpg' width='1920' height='1200' class='myimage' >"
+  # html += "<img src='background.widget/images/" + output.trim() + "' width='1920' height='1200' class='myimage' >"
   # html += "</div>"
 
   # Set the output
