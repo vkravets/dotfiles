@@ -8,10 +8,16 @@
 
 # osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/vkravets/Library/Application Support/Übersicht/widgets/background.widget/images/wallpaper.jpg"' && \
 
+# curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200'; \
+# sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '`pwd`/background.widget/images/wallpaper.jpg'" ; \
+# killall Dock ; \
+
+
 command: """
-curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200'; \
-sqlite3 ~/Library/Application\\ Support/Dock/desktoppicture.db "update data set value = '`pwd`/background.widget/images/wallpaper.jpg'" ; \
-killall Dock ; \
+cp background.widget/images/wallpaper.jpg background.widget/images/wallpaper_old.jpg ; \
+curl -Lso background.widget/images/wallpaper.jpg 'https://source.unsplash.com/1920x1200' ; \
+/usr/local/bin/python3 background.widget/change_desktop.py background.widget/images/wallpaper_old.jpg ; \
+/usr/local/bin/python3 background.widget/change_desktop.py background.widget/images/wallpaper.jpg ; \
 exit 0
 """
 
@@ -59,18 +65,22 @@ style: """
 
 render: -> """
 <div class='darker-top'></div>
-<div id='background'></div>
+<div id='background'>
+  <div class='wallpaper'>
+      <img src='background.widget/images/wallpaper.jpg' width='1920' height='1200' class='myimage' >
+  </div>
+</div>
 <div class='darker-bottom'></div>
 """
 
 # Update the rendered output.
 update: (output, domEl) ->
-  mydiv = $(domEl).find('#background')
-  html = ''
+  # mydiv = $(domEl).find('#background')
+  # html = ''
   # outputhtml = output.replace("<url>", "").replace("</url>", "").replace(/(?:\r\n|\r|\n)/g, '').trim()
-  html += "<div class='wallpaper'> "
-  html += "<img src='background.widget/images/wallpaper.jpg' width='1920' height='1200' class='myimage' >"
-  html += "</div>"
+  # html += "<div class='wallpaper'> "
+  # html += "<img src='background.widget/images/wallpaper.jpg' width='1920' height='1200' class='myimage' >"
+  # html += "</div>"
 
   # Set the output
-  mydiv.html(html)
+  # mydiv.html(html)
